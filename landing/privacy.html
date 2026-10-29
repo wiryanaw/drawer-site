@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy · Drawer</title>
+<meta name="description" content="Drawer is designed with privacy at its core. Your notes stay on your Mac. No servers, no accounts, no tracking.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+  @font-face { font-family:"Geist"; src:url("assets/Geist-Regular.ttf"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Geist"; src:url("assets/Geist-Medium.ttf"); font-weight:500; font-display:swap; }
+  @font-face { font-family:"Geist"; src:url("assets/Geist-SemiBold.ttf"); font-weight:600; font-display:swap; }
+  @font-face { font-family:"Geist"; src:url("assets/Geist-Bold.ttf"); font-weight:700; font-display:swap; }
+  :root {
+    --bl:#1F6BFF; --bl-soft:#6E9EFF; --ink:#171717; --sec:#6B6B6B; --ter:#A1A1A1;
+    --paper:#FAFAFA; --card:#FFFFFF; --line:rgba(0,0,0,.08);
+    --ease:cubic-bezier(.32,.72,.28,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:"Geist",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  ::selection { background:rgba(31,107,255,.16); }
+  .wrap { max-width:760px; margin:0 auto; padding:0 28px; }
+
+  /* Nav, same as the landing page */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; transition:background .3s, box-shadow .3s, backdrop-filter .3s; }
+  nav.scrolled { background:rgba(250,250,250,.82); backdrop-filter:blur(14px); box-shadow:0 1px 0 var(--line); }
+  .nav-inner { display:flex; align-items:center; gap:34px; height:68px; max-width:1120px; margin:0 auto; padding:0 28px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:17px; color:var(--ink); text-decoration:none; }
+  .mark-img { width:30px; height:30px; }
+  .nav-links { display:flex; gap:26px; margin-left:8px; }
+  .nav-links a { position:relative; color:var(--sec); text-decoration:none; font-size:14px; font-weight:500; padding:4px 0; transition:color .2s; }
+  .nav-links a::after { content:""; position:absolute; left:0; bottom:0; height:2px; width:100%; border-radius:2px;
+    background:var(--bl); transform:scaleX(0); transform-origin:left; transition:transform .25s var(--ease); }
+  .nav-links a:hover { color:var(--ink); } .nav-links a:hover::after { transform:scaleX(1); }
+  .nav-links a.on { color:var(--ink); } .nav-links a.on::after { transform:scaleX(1); }
+  .nav-cta { margin-left:auto; }
+  .btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; border-radius:10px;
+    padding:9px 18px; cursor:pointer; text-decoration:none; color:#fff; position:relative; overflow:hidden;
+    background:linear-gradient(180deg,#3A86FF,#0A5AE6);
+    box-shadow:0 1px 2px rgba(10,90,230,.45), 0 6px 20px rgba(31,107,255,.28), inset 0 1px 0 rgba(255,255,255,.25);
+    transition:transform .18s var(--ease), box-shadow .25s var(--ease); }
+  .btn:hover { transform:translateY(-2px); box-shadow:0 2px 4px rgba(10,90,230,.45), 0 14px 34px rgba(31,107,255,.38), inset 0 1px 0 rgba(255,255,255,.25); }
+  @media (max-width:760px) { .nav-links { display:none; } }
+
+  /* Hero */
+  .p-hero { padding:130px 0 46px; text-align:center;
+    background:
+      radial-gradient(1000px 500px at 50% -20%, rgba(31,107,255,.13), transparent 60%),
+      linear-gradient(180deg,#FBFCFF, var(--paper)); }
+  .shield { width:64px; height:64px; margin:0 auto 22px; border-radius:18px; color:#fff;
+    background:linear-gradient(to bottom, rgba(255,255,255,.24), transparent 60%), linear-gradient(180deg,#3A86FF,#0A5AE6);
+    box-shadow:0 14px 30px -12px rgba(10,90,230,.6);
+    display:flex; align-items:center; justify-content:center; }
+  .shield svg { width:30px; height:30px; stroke:currentColor; }
+  .p-hero h1 { font-size:clamp(34px,5vw,48px); font-weight:700; letter-spacing:-.028em; }
+  .p-hero p { margin-top:12px; font-size:17px; color:var(--sec); }
+  .updated { margin-top:16px; font-size:13px; color:var(--ter); }
+
+  /* The four promises */
+  .promises { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:40px; }
+  @media (max-width:640px) { .promises { grid-template-columns:1fr; } }
+  .promise { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 18px 16px; }
+  .promise svg { width:18px; height:18px; stroke:var(--bl); margin-bottom:10px; }
+  .promise h3 { font-size:15px; font-weight:650; margin-bottom:4px; }
+  .promise p { font-size:13.5px; line-height:1.55; color:var(--sec); }
+
+  /* Content */
+  .content { padding:20px 0 100px; }
+  .lead { font-size:18px; line-height:1.65; color:var(--ink); margin-bottom:32px; }
+  .lead b { font-weight:600; }
+  .policy { display:flex; flex-direction:column; gap:16px; }
+  .p-card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px 28px;
+    transition:transform .22s var(--ease), box-shadow .28s var(--ease), border-color .22s; }
+  .p-card:hover { transform:translateY(-3px); border-color:rgba(31,107,255,.28); box-shadow:0 18px 44px rgba(10,30,70,.08); }
+  .p-card h2 { display:flex; align-items:center; gap:11px; font-size:18px; font-weight:650; letter-spacing:-.01em; margin-bottom:10px; }
+  .p-card .bar { width:4px; height:20px; border-radius:2px; background:var(--bl); flex-shrink:0; }
+  .p-card p { font-size:15px; line-height:1.7; color:var(--sec); }
+  .p-card p + p { margin-top:10px; }
+  .p-card a { color:var(--bl); text-decoration:none; font-weight:500; }
+  .p-card a:hover { text-decoration:underline; }
+  .p-card b { color:var(--ink); font-weight:600; }
+
+  .callout { margin-top:36px; background:linear-gradient(180deg, rgba(31,107,255,.06), rgba(31,107,255,.03));
+    border:1px solid rgba(31,107,255,.2); border-radius:18px; padding:26px 28px; }
+  .callout h3 { font-size:16px; font-weight:650; margin-bottom:8px; }
+  .callout p { font-size:14.5px; line-height:1.65; color:var(--sec); }
+
+  /* Footer, same as the landing page */
+  footer { border-top:1px solid var(--line); background:#F4F5F7; padding:44px 0 54px; }
+  .foot { display:flex; align-items:center; gap:24px; flex-wrap:wrap; max-width:1120px; margin:0 auto; padding:0 28px; }
+  .foot .brand { font-size:15px; }
+  .foot-links { display:flex; gap:22px; margin-left:auto; }
+  .foot-links a { color:var(--sec); font-size:13.5px; text-decoration:none; transition:color .2s; }
+  .foot-links a:hover { color:var(--bl); }
+  .made { width:100%; margin-top:18px; font-size:12.5px; color:var(--ter); max-width:1120px; margin-left:auto; margin-right:auto; padding:0 28px; }
+  @media (max-width:820px) {
+    .foot { flex-direction:column; align-items:flex-start; gap:16px; }
+    .foot-links { margin-left:0; flex-wrap:wrap; gap:16px; }
+  }
+
+  /* Drawer isn't out yet: download buttons say so, and explain on click */
+  .soon-pill { display:inline-flex; align-items:center; margin-left:4px; padding:2px 8px; border-radius:99px;
+    font-size:11px; font-weight:700; letter-spacing:.02em; color:#0A5AE6; background:rgba(255,255,255,.92); }
+  .soon-note { position:fixed; left:50%; bottom:28px; z-index:200; display:flex; align-items:center; gap:10px;
+    padding:12px 18px; border-radius:14px; background:#171717; color:#fff; font-size:14px; font-weight:500;
+    box-shadow:0 18px 40px rgba(0,0,0,.28); transform:translate(-50%, 16px); opacity:0; pointer-events:none;
+    transition:opacity .25s var(--ease), transform .35s var(--ease); }
+  .soon-note.show { opacity:1; transform:translate(-50%, 0); }
+  .soon-note .dot { width:8px; height:8px; border-radius:50%; background:#6E9EFF; box-shadow:0 0 0 4px rgba(110,158,255,.25); }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><img class="mark-img" src="assets/drawer-mark.svg" alt="">Drawer</a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a class="on" href="privacy.html">Privacy</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="nav-cta"><a class="btn" href="index.html#download" data-soon aria-label="Download for Mac, coming soon">Download for Mac <span class="soon-pill">Soon</span></a></div>
+  </div>
+</nav>
+
+<header class="p-hero">
+  <div class="wrap">
+    <div class="shield">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 5 6v5.5c0 4.2 2.9 7.6 7 9 4.1-1.4 7-4.8 7-9V6Z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
+    </div>
+    <h1>Privacy Policy</h1>
+    <p>Your notes stay yours.</p>
+    <div class="updated">Last updated 29 October 2026</div>
+  </div>
+</header>
+
+<main class="content">
+  <div class="wrap">
+    <p class="lead">Drawer is a notes app for macOS. <b>Your notes stay on your Mac.</b> There is no account to create, no server storing your writing, and nothing for anyone to breach. This policy explains, plainly, exactly how Drawer handles your data.</p>
+
+    <div class="promises">
+      <div class="promise"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><h3>No account</h3><p>Nothing to sign up for. Your name and picture are labels kept on your Mac.</p></div>
+      <div class="promise"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><h3>No tracking</h3><p>No analytics, no crash reports, no usage data. Ever.</p></div>
+      <div class="promise"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 5 6v5.5c0 4.2 2.9 7.6 7 9 4.1-1.4 7-4.8 7-9V6Z"/></svg><h3>No internet by default</h3><p>Drawer blocks every connection, unless you turn on writing help from Claude.</p></div>
+      <div class="promise"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4.5 4.5v12a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5Z"/><path d="M14 3.5V8h4.5"/></svg><h3>Files you own</h3><p>Plain Markdown files in Documents, readable by any app.</p></div>
+    </div>
+
+    <div class="policy">
+      <div class="p-card">
+        <h2><span class="bar"></span>No data collection</h2>
+        <p>Drawer does not collect, transmit, or store any personal data on external servers. Drawer has no servers. We have no access to your notes, titles, folders, comments, or anything else you write.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Local storage only</h2>
+        <p>Your notes, folders, pictures, earlier versions of each note, templates and Trash live in the Drawer folder in your Documents, as plain Markdown files and ordinary folders. Your preferences, such as your name, picture and sounds, live in Drawer's app data on your Mac.</p>
+        <p>If you back up or sync your Documents folder, for example with iCloud Drive or Time Machine, your notes go wherever those copies go, under those services' terms.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>No analytics or tracking</h2>
+        <p>Drawer contains no analytics SDKs, no crash reporters, and no third party tracking libraries. We do not track how you use the app, which features you open, or how often you launch it. There are no cookies, no advertising identifiers, and no profiles built about you.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Works offline</h2>
+        <p>Drawer is built to run fully offline. It blocks every connection to the internet and never phones home. Links you click open in your browser, outside Drawer. The only exception is the optional writing help described below, and only when you ask for it.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Locked notes</h2>
+        <p>A locked note's writing is encrypted on your Mac with AES-256, using a key made from your password. Drawer never stores your password. If you turn on Touch ID, the key is sealed in your Mac's Keychain. Locked notes lock again when you close them, when your Mac sleeps, or after a while idle.</p>
+        <p><b>Titles and pictures in locked notes are not encrypted</b>, only the writing. If you forget the password and Touch ID is off, a locked note cannot be recovered by anyone, including us.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Writing help with Claude</h2>
+        <p>Writing help is off unless you turn it on. When you ask Claude for help, Drawer sends Anthropic only the text you selected (or the text before the cursor, to continue writing) and your request. Nothing else is ever sent, and never a locked note.</p>
+        <p>Through your Claude plan, Anthropic handles that text like your Claude chats, under your claude.ai privacy settings. With your own API key, Anthropic's commercial terms apply. Your API key is sealed in your Mac's Keychain and never stored in your notes.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Deleting your data</h2>
+        <p>Delete a note and it goes to Trash; empty Trash and it is gone from your Mac. To remove everything, delete the Drawer folder in Documents and Drawer's app data in Library / Application Support / Drawer. Drawer keeps no copy anywhere else.</p>
+      </div>
+      <div class="p-card">
+        <h2><span class="bar"></span>Contact</h2>
+        <p>If you have any questions about this policy or how Drawer handles your data, email us at <a href="mailto:wiryanaw@gmail.com">wiryanaw@gmail.com</a>. We are happy to answer anything.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>In one sentence</h3>
+      <p>Drawer keeps your notes on your Mac as files you own, collects nothing about you, and only touches the internet when you personally ask Claude for help.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="foot">
+    <a class="brand" href="index.html"><img class="mark-img" src="assets/drawer-mark.svg" alt="">Drawer</a>
+    <div class="foot-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:wiryanaw@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="made">© 2026 Drawer. Beautiful notes that never leave your Mac. Made with care by Wiryana.</div>
+</footer>
+
+<script>
+  // ===== Drawer isn't out yet: download buttons explain instead of jumping =====
+  const note = document.createElement("div");
+  note.className = "soon-note"; note.setAttribute("role", "status");
+  note.innerHTML = '<span class="dot"></span>Drawer is still in the works. It\u2019s coming soon to the Mac.';
+  document.body.appendChild(note);
+  let noteTimer;
+  document.querySelectorAll("[data-soon]").forEach(b => b.addEventListener("click", e => {
+    e.preventDefault();
+    note.classList.add("show");
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => note.classList.remove("show"), 2800);
+  }));
+
+  const nav = document.getElementById("nav");
+  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 24), { passive:true });
+</script>
+</body>
+</html>

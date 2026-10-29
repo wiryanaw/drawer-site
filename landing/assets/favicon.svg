@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <g transform="translate(-6 46)">
+  <!-- Page lifting out of the drawer, with trailing echoes like Cabinet's drawers -->
+  <rect x="380" y="186" width="340" height="380" rx="44" fill="#EEF3FF"/>
+  <rect x="358" y="208" width="340" height="380" rx="44" fill="#C9DAFF"/>
+  <rect x="336" y="230" width="340" height="380" rx="44" fill="#DCE7FF"/>
+  <rect x="384" y="290" width="150" height="26" rx="13" fill="#1F6BFF"/>
+  <rect x="384" y="346" width="244" height="22" rx="11" fill="#1F6BFF" opacity="0.32"/>
+  <rect x="384" y="394" width="204" height="22" rx="11" fill="#1F6BFF" opacity="0.32"/>
+  <rect x="384" y="442" width="226" height="22" rx="11" fill="#1F6BFF" opacity="0.32"/>
+  <!-- Drawer front, same pill and offset trail as Cabinet -->
+  <rect x="290" y="528" width="530" height="190" rx="95" fill="#E6EEFF"/>
+  <rect x="268" y="540" width="530" height="190" rx="95" fill="#6E9EFF"/>
+  <rect x="246" y="552" width="530" height="190" rx="95" fill="#1F6BFF"/>
+  <rect x="437" y="631" width="148" height="32" rx="16" fill="#EEF4FF"/>
+  </g>
+</svg>
