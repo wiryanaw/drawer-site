@@ -109,8 +109,17 @@
     padding:12px 18px; border-radius:14px; background:#171717; color:#fff; font-size:14px; font-weight:500;
     box-shadow:0 18px 40px rgba(0,0,0,.28); transform:translate(-50%, 16px); opacity:0; pointer-events:none;
     transition:opacity .25s var(--ease), transform .35s var(--ease); }
+  .nav-cta .btn { white-space:nowrap; }
+  @media (max-width:820px) { .nav-long { display:none; } }
   .soon-note.show { opacity:1; transform:translate(-50%, 0); }
-  .soon-note .dot { width:8px; height:8px; border-radius:50%; background:#6E9EFF; box-shadow:0 0 0 4px rgba(110,158,255,.25); }
+  .soon-note .dot { flex:none; width:8px; height:8px; border-radius:50%; background:#6E9EFF; box-shadow:0 0 0 4px rgba(110,158,255,.25); }
+  /* On a phone the note spans the screen, with the same 16px margins on each side. */
+  @media (max-width:640px) {
+    .soon-note { left:16px; right:16px; bottom:20px; width:auto; transform:translateY(16px);
+      align-items:flex-start; gap:12px; padding:14px 16px; font-size:14.5px; line-height:1.45; }
+    .soon-note.show { transform:none; }
+    .soon-note .dot { margin-top:6px; }
+  }
   @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
 </style>
 </head>
@@ -124,7 +133,7 @@
       <a class="on" href="privacy.html">Privacy</a>
       <a href="index.html#faq">FAQ</a>
     </div>
-    <div class="nav-cta"><a class="btn" href="index.html#download" data-soon aria-label="Download for Mac, coming soon">Download for Mac <span class="soon-pill">Soon</span></a></div>
+    <div class="nav-cta"><a class="btn" href="index.html#download" data-soon aria-label="Download for Mac, coming soon">Download<span class="nav-long"> for Mac</span> <span class="soon-pill">Soon</span></a></div>
   </div>
 </nav>
 

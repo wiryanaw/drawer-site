@@ -245,6 +245,47 @@
   .zero b { display:block; font-size:26px; font-weight:700; letter-spacing:-.02em; color:var(--bl); }
   .zero span { font-size:11.5px; color:var(--sec); }
 
+  /* Cards sharing a row: the visual at the bottom grows to fill the card, so
+     no card is left with an empty band under it. */
+  .b-card.stack { display:flex; flex-direction:column; }
+  .b-card.stack > :last-child { flex:1; }
+  .stack .zero-row { align-items:stretch; }
+  .stack .zero { display:flex; flex-direction:column; justify-content:center; }
+  .stack .offline { display:flex; flex-direction:column; justify-content:center; }
+  .stack .attn { justify-content:flex-end; }
+
+  /* offline card */
+  .offline { margin-top:22px; border:1px solid var(--line); border-radius:14px; background:var(--paper); padding:14px; }
+  .offline-head { display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; margin-bottom:12px; }
+  .off-toggle { width:34px; height:20px; border-radius:10px; background:#D9D9D9; position:relative; transition:background .3s; }
+  .off-toggle i { position:absolute; top:3px; left:3px; width:14px; height:14px; border-radius:50%; background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform .35s cubic-bezier(.3,1.4,.5,1); }
+  .offline-list { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .offline-list span { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink); }
+  .offline-list svg { width:14px; height:14px; color:#2F9E62; }
+
+  /* comments card */
+  .attn { margin-top:22px; display:flex; flex-direction:column; gap:9px; }
+  .attn-r { display:flex; align-items:center; gap:11px; background:var(--paper); border:1px solid var(--line);
+    border-radius:12px; padding:12px 14px; transition:border-color .25s; }
+  .attn-r div { min-width:0; }
+  .attn-r b { display:block; font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .attn-r span { font-size:11.5px; color:var(--sec); }
+  .attn-dot { position:relative; width:9px; height:9px; border-radius:50%; background:var(--amber); flex-shrink:0; }
+  .attn-dot.dim { background:rgba(232,160,20,.45); }
+  .b-card:hover .attn-r:first-child { border-color:rgba(232,160,20,.45); }
+  .b-card:hover .attn-r:first-child .attn-dot::after { content:""; position:absolute; inset:-5px; border-radius:50%;
+    border:2px solid rgba(232,160,20,.45); animation:pulse 1.6s ease-out infinite; }
+  @keyframes pulse { from { transform:scale(.5); opacity:1; } to { transform:scale(1.5); opacity:0; } }
+
+  /* the wide card: words on the left, screenshot on the right */
+  .wide { display:flex; gap:40px; align-items:center; flex-wrap:wrap; }
+  .wide-text { flex:1; min-width:280px; }
+  .wide-shot { flex:1.35; min-width:300px; }
+  .wide-shot img { width:100%; display:block; border-radius:12px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.08), 0 16px 40px rgba(10,30,70,.13); transition:transform .6s var(--ease); }
+  .b-card:hover .wide-shot img { transform:translateY(-4px) scale(1.01); }
+
   /* everything card */
   .feat-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
   .feat-list span { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:500; color:var(--ink);
@@ -332,6 +373,7 @@
     .hero-ctas { flex-direction:column; gap:12px; }
     .hero-ctas .btn { width:min(340px, 86vw); justify-content:center; }
     .h-paper, .chip-f { display:none; }
+    .eb-more { display:none; }
     .stage3d { margin-top:44px; }
     .drawer-stage { width:94vw; }
     .drawer-front { height:64px; border-radius:14px 14px 0 0; left:-2.5%; right:-2.5%; }
@@ -352,8 +394,17 @@
     padding:12px 18px; border-radius:14px; background:#171717; color:#fff; font-size:14px; font-weight:500;
     box-shadow:0 18px 40px rgba(0,0,0,.28); transform:translate(-50%, 16px); opacity:0; pointer-events:none;
     transition:opacity .25s var(--ease), transform .35s var(--ease); }
+  .nav-cta .btn { white-space:nowrap; }
+  @media (max-width:820px) { .nav-long { display:none; } }
   .soon-note.show { opacity:1; transform:translate(-50%, 0); }
-  .soon-note .dot { width:8px; height:8px; border-radius:50%; background:#6E9EFF; box-shadow:0 0 0 4px rgba(110,158,255,.25); }
+  .soon-note .dot { flex:none; width:8px; height:8px; border-radius:50%; background:#6E9EFF; box-shadow:0 0 0 4px rgba(110,158,255,.25); }
+  /* On a phone the note spans the screen, with the same 16px margins on each side. */
+  @media (max-width:640px) {
+    .soon-note { left:16px; right:16px; bottom:20px; width:auto; transform:translateY(16px);
+      align-items:flex-start; gap:12px; padding:14px 16px; font-size:14.5px; line-height:1.45; }
+    .soon-note.show { transform:none; }
+    .soon-note .dot { margin-top:6px; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
@@ -372,6 +423,8 @@
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M8.5 16.5a5 5 0 0 1 7 0M5 12.6a10 10 0 0 1 4-2.2M19 12.6a10 10 0 0 0-2.4-1.7M2 9a15 15 0 0 1 4.4-2.8M22 9a15 15 0 0 0-10-3.9"/><path d="M12 20h.01"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M5.5 5h13A2.5 2.5 0 0 1 21 7.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.5V18h-1A2.5 2.5 0 0 1 3 15.5v-8A2.5 2.5 0 0 1 5.5 5Z"/><path d="M8 10h8M8 13.5h5"/></symbol>
 </svg>
 
 <nav id="nav">
@@ -383,14 +436,14 @@
       <a href="privacy.html">Privacy</a>
       <a href="#faq">FAQ</a>
     </div>
-    <div class="nav-cta"><a class="btn btn-primary" href="#download" data-soon aria-label="Download for Mac, coming soon">Download for Mac <span class="soon-pill">Soon</span></a></div>
+    <div class="nav-cta"><a class="btn btn-primary" href="#download" data-soon aria-label="Download for Mac, coming soon">Download<span class="nav-long"> for Mac</span> <span class="soon-pill">Soon</span></a></div>
   </div>
 </nav>
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="eyebrow h-in d1"><span class="dot"></span>Coming soon to macOS · Local first · No account</div>
+    <div class="eyebrow h-in d1"><span class="dot"></span>Coming soon to macOS<span class="eb-more"> · Local first · No account</span></div>
     <h1 class="h-in d2">Beautiful notes.<br><span class="ac">Kept on your Mac.</span></h1>
     <p class="hero-sub h-in d3">Drawer is a calm notebook for students and professionals. Your notes are plain files you own, private notes are encrypted, and Claude helps only when you ask.</p>
     <div class="hero-ctas h-in d4">
@@ -493,7 +546,7 @@
         </div>
       </div>
 
-      <div class="b-card span-2" data-reveal>
+      <div class="b-card span-2 stack" data-reveal>
         <div class="b-ico"><svg class="i"><use href="#i-shield"/></svg></div>
         <h3>Private by design</h3>
         <p>No server, no account, no analytics. There is nothing to breach.</p>
@@ -504,21 +557,50 @@
         </div>
       </div>
 
-      <div class="b-card span-4" data-reveal style="--d:.1s">
-        <div class="b-ico"><svg class="i"><use href="#i-grid"/></svg></div>
-        <h3>Everything in one calm place</h3>
-        <p>The small things that make a notebook feel good to come back to.</p>
-        <div class="feat-list">
-          <span><svg class="i"><use href="#i-check"/></svg>Templates</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Comments to yourself</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Version history</span>
-          <span><svg class="i"><use href="#i-check"/></svg>PDF export</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Equations</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Linked notes</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Pin and sort</span>
-          <span><svg class="i"><use href="#i-check"/></svg>Keyboard sounds</span>
+      <div class="b-card span-2 stack" data-reveal style="--d:.1s">
+        <div class="b-ico"><svg class="i"><use href="#i-wifi-off"/></svg></div>
+        <h3>Works offline</h3>
+        <p>On a plane or in a lecture hall with no Wi-Fi, everything still works.</p>
+        <div class="offline">
+          <div class="offline-head"><span class="off-toggle"><i></i></span>Wi-Fi off</div>
+          <div class="offline-list">
+            <span><svg class="i"><use href="#i-check"/></svg>Writing</span>
+            <span><svg class="i"><use href="#i-check"/></svg>Search</span>
+            <span><svg class="i"><use href="#i-check"/></svg>Locked notes</span>
+            <span><svg class="i"><use href="#i-check"/></svg>PDF export</span>
+          </div>
         </div>
-        <div class="b-shot"><img src="assets/library.png" alt="All documents in Drawer, grouped by day, with a locked journal"></div>
+      </div>
+
+      <div class="b-card span-2 stack" data-reveal style="--d:.2s">
+        <div class="b-ico"><svg class="i"><use href="#i-comment"/></svg></div>
+        <h3>Comments that bring you back</h3>
+        <p>Highlight anything that needs a second look. Home keeps every open comment in one list.</p>
+        <div class="attn">
+          <div class="attn-r"><span class="attn-dot"></span><div><b>Review before Friday's quiz</b><span>Lecture 7 · Eigenvalues</span></div></div>
+          <div class="attn-r"><span class="attn-dot dim"></span><div><b>Confirm the onboarding copy</b><span>Design review</span></div></div>
+        </div>
+      </div>
+
+      <div class="b-card span-6" data-reveal>
+        <div class="wide">
+          <div class="wide-text">
+            <div class="b-ico"><svg class="i"><use href="#i-grid"/></svg></div>
+            <h3>Everything in one calm place</h3>
+            <p>The small things that make a notebook feel good to come back to.</p>
+            <div class="feat-list">
+              <span><svg class="i"><use href="#i-check"/></svg>Templates</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Version history</span>
+              <span><svg class="i"><use href="#i-check"/></svg>PDF export</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Equations</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Linked notes</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Pin and sort</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Search everything</span>
+              <span><svg class="i"><use href="#i-check"/></svg>Keyboard sounds</span>
+            </div>
+          </div>
+          <div class="wide-shot"><img src="assets/library.png" alt="All documents in Drawer, grouped by day, with a locked journal"></div>
+        </div>
       </div>
 
     </div>
